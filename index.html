@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8PM in Dar es Salaam | Wilson Mponzi</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="8pm_dar_portfolio.css">
+<style type="text/css">
+   :root {
+    --black: #070a0f;
+    --navy: #0b1120;
+    --cyan: #00e5ff;
+    --orange: #ff6b2b;
+    --white: #f0f4ff;
+    --muted: #8896b0;
+    --card: #0f1929;
+    --border: rgba(0,229,255,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(7,10,15,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-brand {
+    font-family: 'Space Mono', monospace;
+    font-size: .75rem;
+    letter-spacing: .18em;
+    color: var(--cyan);
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-size: .82rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .25s;
+  }
+  .nav-links a:hover { color: var(--cyan); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 10rem 4rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 80% 40%, rgba(0,229,255,.06) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 15% 75%, rgba(255,107,43,.05) 0%, transparent 60%),
+      linear-gradient(180deg, #070a0f 0%, #0b1120 100%);
+    z-index: 0;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,229,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,229,255,.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: 0;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: .72rem;
+    letter-spacing: .22em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 1.4rem;
+    opacity: 0;
+    animation: fadeUp .8s .3s forwards;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.2rem, 7vw, 6.5rem);
+    line-height: 1.02;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp .8s .5s forwards;
+  }
+  .hero-title em { color: var(--cyan); font-style: italic; }
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp .8s .7s forwards;
+  }
+  .hero-sub strong { color: var(--white); }
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp .8s .9s forwards;
+  }
+  .btn-primary {
+    padding: .9rem 2.2rem;
+    background: var(--cyan);
+    color: var(--black);
+    font-weight: 700;
+    font-size: .85rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,229,255,.35); }
+  .btn-outline {
+    padding: .9rem 2.2rem;
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-size: .85rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+  .hero-stat-row {
+    position: absolute; bottom: 4rem; left: 4rem; right: 4rem;
+    display: flex; gap: 4rem; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+    opacity: 0; animation: fadeUp .8s 1.1s forwards;
+  }
+  .stat { }
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.8rem;
+    color: var(--cyan);
+    font-weight: 700;
+  }
+  .stat-label { font-size: .78rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-top: .2rem; }
+
+  /* ── SECTIONS ── */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: .7rem;
+    letter-spacing: .22em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { color: var(--cyan); font-style: italic; }
+  .divider { width: 60px; height: 3px; background: var(--cyan); margin-bottom: 3rem; }
+
+  /* ── ABOUT ── */
+  #about { background: var(--navy); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+  .about-photo {
+    aspect-ratio: 4/5;
+    background: var(--card);
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: .8rem;
+    cursor: pointer;
+    transition: border-color .3s;
+  }
+  .about-photo:hover { border-color: var(--cyan); }
+  .photo-icon { font-size: 2.5rem; opacity: .3; }
+  .photo-hint { font-family: 'Space Mono', monospace; font-size: .7rem; color: var(--muted); letter-spacing: .15em; }
+  .about-photo input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem; }
+  .about-text p strong { color: var(--white); }
+  .tag-row { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: 1.8rem; }
+  .tag {
+    padding: .35rem .9rem;
+    border: 1px solid var(--border);
+    font-size: .75rem;
+    letter-spacing: .1em;
+    color: var(--cyan);
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ── EPISODES ── */
+  #episodes { }
+  .episodes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .episode-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: transform .25s, border-color .25s;
+    cursor: pointer;
+  }
+  .episode-card:hover { transform: translateY(-5px); border-color: var(--cyan); }
+  .ep-cover {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #0b1e3a, #071018);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .ep-cover::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, var(--card) 100%);
+  }
+  .ep-num {
+    position: absolute; top: 1rem; right: 1rem;
+    font-family: 'Space Mono', monospace; font-size: .68rem;
+    color: var(--cyan); letter-spacing: .12em; z-index: 1;
+  }
+  .ep-body { padding: 1.4rem; }
+  .ep-date { font-family: 'Space Mono', monospace; font-size: .65rem; color: var(--muted); letter-spacing: .12em; margin-bottom: .5rem; }
+  .ep-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: .6rem; line-height: 1.3; }
+  .ep-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+  .ep-play {
+    display: inline-flex; align-items: center; gap: .5rem;
+    margin-top: 1rem; font-size: .75rem; color: var(--cyan);
+    letter-spacing: .1em; text-transform: uppercase; font-family: 'Space Mono', monospace;
+    cursor: pointer;
+  }
+  .add-episode {
+    border: 1px dashed rgba(0,229,255,.25);
+    background: transparent;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: .6rem; min-height: 280px; cursor: pointer;
+    transition: border-color .3s;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace; font-size: .75rem;
+    letter-spacing: .12em;
+  }
+  .add-episode:hover { border-color: var(--cyan); color: var(--cyan); }
+  .plus { font-size: 2rem; }
+
+  /* ── SCHEDULE ── */
+  #schedule { background: var(--navy); }
+  .schedule-list { display: flex; flex-direction: column; gap: 1px; }
+  .schedule-item {
+    display: grid; grid-template-columns: 140px 1fr auto;
+    align-items: center; gap: 2rem;
+    padding: 1.8rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: background .2s;
+    cursor: pointer;
+  }
+  .schedule-item:hover .sch-name { color: var(--cyan); }
+  .sch-date { font-family: 'Space Mono', monospace; font-size: .78rem; color: var(--cyan); letter-spacing: .1em; }
+  .sch-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; transition: color .2s; }
+  .sch-topic { font-size: .83rem; color: var(--muted); }
+  .sch-badge {
+    padding: .3rem .9rem;
+    font-size: .68rem; letter-spacing: .12em;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+  }
+  .badge-live { border: 1px solid var(--orange); color: var(--orange); }
+  .badge-upcoming { border: 1px solid var(--border); color: var(--muted); }
+
+  /* ── GALLERY ── */
+  #gallery { }
+  .gallery-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1rem; }
+  .g-cell {
+    background: var(--card);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: .5rem;
+    cursor: pointer; position: relative;
+    transition: border-color .25s;
+  }
+  .g-cell:hover { border-color: var(--cyan); }
+  .g-cell input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .g-cell:nth-child(1) { grid-column: span 6; aspect-ratio: 4/3; }
+  .g-cell:nth-child(2) { grid-column: span 3; aspect-ratio: 3/4; }
+  .g-cell:nth-child(3) { grid-column: span 3; aspect-ratio: 3/4; }
+  .g-cell:nth-child(4) { grid-column: span 4; aspect-ratio: 4/3; }
+  .g-cell:nth-child(5) { grid-column: span 4; aspect-ratio: 4/3; }
+  .g-cell:nth-child(6) { grid-column: span 4; aspect-ratio: 4/3; }
+  .g-icon { font-size: 1.8rem; opacity: .25; }
+  .g-hint { font-family: 'Space Mono', monospace; font-size: .63rem; color: var(--muted); letter-spacing: .12em; }
+  .g-cell img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+
+  /* ── BLOG ── */
+  #blog { background: var(--navy); }
+  .blog-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 2rem; }
+  .blog-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color .25s;
+    cursor: pointer;
+  }
+  .blog-card:hover { border-color: var(--cyan); }
+  .blog-img {
+    aspect-ratio: 16/7;
+    background: linear-gradient(135deg, #0f1f35, #0a1520);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem; position: relative; overflow: hidden;
+  }
+  .blog-img input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .blog-img img { width: 100%; height: 100%; object-fit: cover; }
+  .blog-body { padding: 1.8rem; }
+  .blog-cat { font-family: 'Space Mono', monospace; font-size: .65rem; color: var(--cyan); letter-spacing: .15em; text-transform: uppercase; margin-bottom: .6rem; }
+  .blog-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; line-height: 1.3; margin-bottom: .8rem; }
+  .blog-excerpt { font-size: .83rem; color: var(--muted); line-height: 1.7; }
+  .blog-meta { display: flex; justify-content: space-between; margin-top: 1.2rem; font-family: 'Space Mono', monospace; font-size: .65rem; color: var(--muted); }
+  .blog-side { display: flex; flex-direction: column; gap: 1.2rem; }
+  .blog-small {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 1.4rem; display: flex; gap: 1.2rem; align-items: flex-start;
+    transition: border-color .25s; cursor: pointer;
+  }
+  .blog-small:hover { border-color: var(--cyan); }
+  .blog-small-num {
+    font-family: 'Space Mono', monospace; font-size: 1.5rem;
+    color: rgba(0,229,255,.2); font-weight: 700; flex-shrink: 0;
+  }
+  .blog-small-title { font-family: 'Playfair Display', serif; font-size: .95rem; font-weight: 700; line-height: 1.3; margin-bottom: .4rem; }
+  .blog-small-date { font-family: 'Space Mono', monospace; font-size: .63rem; color: var(--muted); }
+
+  /* ── CONTACT ── */
+  #contact { }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; }
+  .contact-info { }
+  .contact-info p { color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+  .contact-detail { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
+  .c-row { display: flex; gap: 1rem; align-items: center; }
+  .c-icon { color: var(--cyan); font-size: 1rem; }
+  .c-val { font-size: .85rem; color: var(--muted); }
+  .socials { display: flex; gap: .8rem; margin-top: 2.5rem; }
+  .social-btn {
+    padding: .65rem 1.2rem;
+    border: 1px solid var(--border);
+    font-family: 'Space Mono', monospace; font-size: .68rem;
+    color: var(--muted); letter-spacing: .1em; text-decoration: none;
+    transition: color .2s, border-color .2s;
+  }
+  .social-btn:hover { color: var(--cyan); border-color: var(--cyan); }
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+  .form-group { display: flex; flex-direction: column; gap: .5rem; }
+  .form-group label { font-family: 'Space Mono', monospace; font-size: .68rem; color: var(--cyan); letter-spacing: .15em; }
+  .form-group input, .form-group textarea {
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--white); padding: .9rem 1.2rem;
+    font-family: 'DM Sans', sans-serif; font-size: .9rem;
+    outline: none; transition: border-color .25s; resize: vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--cyan); }
+  .form-group textarea { min-height: 130px; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 3rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--black);
+  }
+  .footer-brand { font-family: 'Space Mono', monospace; font-size: .72rem; color: var(--cyan); letter-spacing: .18em; }
+  .footer-note { font-size: .78rem; color: var(--muted); }
+  .footer-time {
+    font-family: 'Space Mono', monospace; font-size: .72rem; color: var(--muted);
+  }
+  #clock { color: var(--cyan); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .nav-profile {
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 2px solid var(--cyan);
+    overflow: hidden; cursor: pointer; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--card); flex-shrink: 0;
+    transition: box-shadow .3s;
+  }
+  .nav-profile:hover { box-shadow: 0 0 0 4px rgba(0,229,255,.2); }
+  .nav-profile img { width: 100%; height: 100%; object-fit: cover; }
+  .nav-profile input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .nav-profile-icon { font-size: 1.1rem; opacity: .5; }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--cyan); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 8rem 1.5rem 3rem; }
+    .about-grid, .contact-grid, .blog-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .hero-stat-row { position: static; margin-top: 3rem; flex-wrap: wrap; gap: 2rem; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .g-cell { grid-column: span 1 !important; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .schedule-item { grid-template-columns: 1fr; gap: .4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">8PM · Dar es Salaam</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#episodes">Episodes</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#blog">Articles</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-profile" title="Click to upload your profile photo">
+    <span class="nav-profile-icon">👤</span>
+    <input type="file" accept="image/*" onchange="loadNavProfile(this)">
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Live Every Night · 20:00 EAT · Dar es Salaam, Tanzania</p>
+    <h1 class="hero-title">8PM in<br>Dar es <em>Salaam</em></h1>
+    <p class="hero-sub">
+      <strong>With Wilson Mponzi.</strong> The podcast elevating technology journalism in Tanzania — one conversation at a time.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://www.youtube.com/@Wilsonmponzi.02" target="_blank" rel="noopener" class="btn-primary">▶ Listen Now</a>
+      <a href="#schedule" class="btn-outline">Upcoming Guests</a>
+    </div><BR></BR>
+    <audio src="ME.m4a" controls>MY PODCAST</audio>
+  </div><BR></BR>
+<br><br><br>
+  <div class="hero-stat-row">
+    <div class="stat"><div class="stat-num">8PM</div><div class="stat-label">Every Night Live</div></div>
+    <div class="stat"><div class="stat-num">EAT</div><div class="stat-label">East Africa Time</div></div>
+    <div class="stat"><div class="stat-num">TZ</div><div class="stat-label">Tanzania Focus</div></div>
+    <div class="stat"><div class="stat-num">TECH</div><div class="stat-label">Innovation Stories</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-photo">
+      <span class="photo-icon">📸</span>
+      <span class="photo-hint">Click to upload your photo</span>
+      <input type="file" accept="image/*" onchange="loadImage(this, this.parentElement)">
+    </div>
+    <div class="about-text">
+      <p class="section-label">About</p>
+      <h2 class="section-title">The Voice of<br>Tanzania's <em>Tech Era</em></h2>
+      <div class="divider"></div>
+      <p>I'm <strong>Wilson Mponzi</strong>, a journalism diploma student and host of <strong>8PM in Dar es Salaam</strong> — a live podcast dedicated to uncovering the stories shaping technology across Tanzania and East Africa.</p>
+      <p>Every night at 8PM EAT, I sit down with entrepreneurs, engineers, activists, and innovators to ask the questions that matter. My mission is simple: <strong>elevate the technology conversation</strong> in a country whose potential is far outrunning its recognition.</p>
+      <p>From fintech disruption to startup ecosystems, from policy reform to grassroots innovation — this is where those stories live.</p>
+      <div class="tag-row">
+        <span class="tag">Tech Journalism</span>
+        <span class="tag">Podcast Host</span>
+        <span class="tag">Tanzania</span>
+        <span class="tag">East Africa</span>
+        <span class="tag">Innovation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EPISODES -->
+<section id="episodes">
+  <p class="section-label">Latest Episodes</p>
+  <h2 class="section-title">On the <em>Mic</em></h2>
+  <div class="divider"></div>
+  <div class="episodes-grid">
+    <div class="episode-card">
+      <div class="ep-cover">🎙️<span class="ep-num">EP. 01</span></div>
+      <div class="ep-body">
+        <p class="ep-date">MON, 05 MAY 2026 · 20:00 EAT</p>
+        <h3 class="ep-title">The Future of Fintech in Tanzania</h3>
+        <p class="ep-desc">Exploring how mobile money is reshaping financial inclusion across the country with a leading fintech founder.</p>
+        <div class="ep-play">▶ &nbsp;Play Episode</div>
+      </div>
+    </div>
+    <div class="episode-card">
+      <div class="ep-cover">🎙️<span class="ep-num">EP. 02</span></div>
+      <div class="ep-body">
+        <p class="ep-date">TUE, 06 MAY 2026 · 20:00 EAT</p>
+        <h3 class="ep-title">Building Africa's Silicon Savanna</h3>
+        <p class="ep-desc">A conversation with a Nairobi-based startup accelerator director on the rise of East African tech hubs.</p>
+        <div class="ep-play">▶ &nbsp;Play Episode</div>
+      </div>
+    </div>
+    <div class="episode-card">
+      <div class="ep-cover">🎙️<span class="ep-num">EP. 03</span></div>
+      <div class="ep-body">
+        <p class="ep-date">WED, 07 MAY 2026 · 20:00 EAT</p>
+        <h3 class="ep-title">Women Leading Tanzania's Tech Revolution</h3>
+        <p class="ep-desc">Three female founders discuss breaking barriers and redefining what innovation looks like in 2026.</p>
+        <div class="ep-play">▶ &nbsp;Play Episode</div>
+      </div>
+    </div>
+    <div class="episode-card">
+      <div class="ep-cover" style="font-size:2rem;">📱<span class="ep-num">EP. 04</span></div>
+      <div class="ep-body">
+        <p class="ep-date">MAY 2026 · 18 MIN · KARIAKOO MARKET</p>
+        <h3 class="ep-title">Phones, Hustle & the Kariakoo Economy</h3>
+        <p class="ep-desc">A raw, street-level conversation with a phone business seller at Kariakoo — on competition, Chinese imports, margins, and surviving Tanzania's most intense market.</p>
+        <audio controls style="width:100%;margin-top:10px;">
+          <source src="Merged_Interview_Final (1).mp3" type="audio/mpeg">
+          Your browser does not support audio.
+        </audio>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <p class="section-label">Coming Up</p>
+  <h2 class="section-title">Upcoming <em>Guests</em></h2>
+  <div class="divider"></div>
+  <div class="schedule-list">
+    <div class="schedule-item">
+      <div class="sch-date">MON 13 MAY<br>20:00 EAT</div>
+      <div>
+        <div class="sch-name">Dr. Amina Khatib</div>
+        <div class="sch-topic">AI in East African Healthcare Systems</div>
+      </div>
+      <span class="sch-badge badge-live">● LIVE SOON</span>
+    </div>
+    <div class="schedule-item">
+      <div class="sch-date">WED 15 MAY<br>20:00 EAT</div>
+      <div>
+        <div class="sch-name">James Odhiambo</div>
+        <div class="sch-topic">Blockchain & Land Registry Reform in Tanzania</div>
+      </div>
+      <span class="sch-badge badge-upcoming">UPCOMING</span>
+    </div>
+    <div class="schedule-item">
+      <div class="sch-date">FRI 17 MAY<br>20:00 EAT</div>
+      <div>
+        <div class="sch-name">Zuri Innovations Team</div>
+        <div class="sch-topic">Building Sustainable Tech Startups in Dar es Salaam</div>
+      </div>
+      <span class="sch-badge badge-upcoming">UPCOMING</span>
+    </div>
+    <div class="schedule-item">
+      <div class="sch-date">MON 20 MAY<br>20:00 EAT</div>
+      <div>
+        <div class="sch-name">TBA</div>
+        <div class="sch-topic">Ministry of ICT — National Broadband Strategy</div>
+      </div>
+      <span class="sch-badge badge-upcoming">UPCOMING</span>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <p class="section-label">Event Photos</p>
+  <h2 class="section-title">In the <em>Field</em></h2>
+  <div class="divider"></div>
+  <div class="gallery-grid">
+    <div class="g-cell"><span class="g-icon">📷</span><span class="g-hint">Click to upload</span><input type="file" accept="image/*" onchange="loadImage(this, this.parentElement)"></div>
+    <div class="g-cell"><span class="g-icon">📷</span><span class="g-hint">Click to upload</span><input type="file" accept="image/*" onchange="loadImage(this, this.parentElement)"></div>
+    <div class="g-cell"><span class="g-icon">📷</span><span class="g-hint">Click to upload</span><input type="file" accept="image/*" onchange="loadImage(this, this.parentElement)"></div>
+    <div class="g-cell"><span class="g-icon">📷</span><span class="g-hint">Click to upload</span><input type="file" accept="image/*" onchange="loadImage(this, this.parentElement)"></div>
+    <div class="g-cell"><span class="g-icon">📷</span><span class="g-hint">Click to upload</span><input type="file" accept="image/*" onchange="loadImage(this, this.parentElement)"></div>
+    <div class="g-cell"><span class="g-icon">📷</span><span class="g-hint">Click to upload</span><input type="file" accept="image/*" onchange="loadImage(this, this.parentElement)"></div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <p class="section-label">Written Work</p>
+  <h2 class="section-title">Articles & <em>Analysis</em></h2>
+  <div class="divider"></div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-img">📝<input type="file" accept="image/*" onchange="loadImage(this, this.parentElement)"></div>
+      <div class="blog-body">
+        <p class="blog-cat">Feature · Technology</p>
+        <h3 class="blog-title">Why Tanzania's Internet Penetration Gap is a Development Crisis</h3>
+        <p class="blog-excerpt">With less than 50% of the population online, the digital divide is widening economic inequality. Here's what needs to change — and who needs to act.</p>
+        <div class="blog-meta"><span>Wilson Mponzi</span><span>May 10, 2026 · 6 min read</span></div>
+      </div>
+    </div>
+    <div class="blog-side">
+      <div class="blog-small">
+        <div class="blog-small-num">02</div>
+        <div>
+          <div class="blog-small-title">The Startup Graveyard: Why Tanzania's Tech Ventures Fail</div>
+          <div class="blog-small-date">Apr 28, 2026 · 4 min</div>
+        </div>
+      </div>
+      <div class="blog-small">
+        <div class="blog-small-num">03</div>
+        <div>
+          <div class="blog-small-title">Fintech Is Booming — But Who's Being Left Behind?</div>
+          <div class="blog-small-date">Apr 14, 2026 · 5 min</div>
+        </div>
+      </div>
+      <div class="blog-small">
+        <div class="blog-small-num">04</div>
+        <div>
+          <div class="blog-small-title">A Journalism Student's Case for Covering Tech Like It Matters</div>
+          <div class="blog-small-date">Mar 30, 2026 · 3 min</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title">Let's <em>Connect</em></h2>
+      <div class="divider"></div>
+      <p>Want to be a guest on 8PM in Dar es Salaam? Have a story tip, collaboration idea, or press inquiry? Reach out — every message gets a reply.</p>
+      <div class="contact-detail">
+        <div class="c-row"><span class="c-icon">📍</span><span class="c-val">Dar es Salaam, Tanzania</span></div>
+        <div class="c-row"><span class="c-icon">🕗</span><span class="c-val">Live Every Night at 8:00 PM EAT</span></div>
+        <div class="c-row"><span class="c-icon">✉️</span><a href="mailto:wilsonmponzi10@gmail.com" class="c-val" style="color:var(--cyan);text-decoration:none;">wilsonmponzi10@gmail.com</a></div>
+        <div class="c-row"><span class="c-icon">💬</span><a href="https://wa.me/255749900863" target="_blank" class="c-val" style="color:var(--cyan);text-decoration:none;">WhatsApp: +255 749 900 863</a></div>
+        <div class="c-row"><span class="c-icon">📞</span><a href="tel:+255616145193" class="c-val" style="color:var(--cyan);text-decoration:none;">+255 616 145 193</a></div>
+      </div>
+      <div class="socials">
+        <a href="#" class="social-btn">TWITTER</a>
+        <a href="https://www.instagram.com/iamwilsonmponzi01/" class="social-btn" target="_blank">INSTAGRAM</a>
+        <a href="https://www.linkedin.com/in/wilson-mponzi-1874792b8/" class="social-btn" target="_blank">LINKEDIN</a>
+        <a href="https://www.youtube.com/@Wilsonmponzi.02" class="social-btn" target="_blank">YOUTUBE</a>
+      </div>
+    </div>
+    <form class="contact-form" id="contactForm" onsubmit="sendEmail(event)">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="senderName" placeholder="e.g. Amina Khatib" required>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="senderEmail" placeholder="you@example.com" required>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" id="msgSubject" placeholder="Guest Pitch / Media Inquiry / Other" required>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea id="msgBody" placeholder="Tell Wilson what's on your mind…" required></textarea>
+      </div>
+      <button type="submit" class="btn-primary" style="border:none;cursor:pointer;text-align:center;">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">8PM IN DAR ES SALAAM · WILSON MPONZI</span>
+  <span class="footer-note">Elevating Technology Journalism in Tanzania · Est. 2026</span>
+  <span class="footer-time">DAR ES SALAAM &nbsp;·&nbsp; <span id="clock"></span> EAT</span>
+</footer>
+
+<script>
+  // Live clock
+  function tick() {
+    const now = new Date();
+    const eat = new Date(now.toLocaleString('en-US', { timeZone: 'Africa/Dar_es_Salaam' }));
+    const h = String(eat.getHours()).padStart(2,'0');
+    const m = String(eat.getMinutes()).padStart(2,'0');
+    const s = String(eat.getSeconds()).padStart(2,'0');
+    document.getElementById('clock').textContent = `${h}:${m}:${s}`;
+  }
+  tick(); setInterval(tick, 1000);
+
+  // Photo upload handler (gallery + about)
+  function loadImage(input, container) {
+    if (!input.files || !input.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      let img = container.querySelector('img');
+      if (!img) { img = document.createElement('img'); container.appendChild(img); }
+      img.src = e.target.result;
+      container.querySelectorAll('.g-icon, .photo-icon, .g-hint, .photo-hint').forEach(el => el.style.opacity = '0');
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+
+  // Nav profile picture upload
+  function loadNavProfile(input) {
+    if (!input.files || !input.files[0]) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      const container = input.parentElement;
+      let img = container.querySelector('img');
+      if (!img) { img = document.createElement('img'); container.insertBefore(img, input); }
+      img.src = e.target.result;
+      const icon = container.querySelector('.nav-profile-icon');
+      if (icon) icon.style.display = 'none';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+
+  // Contact form → send to Wilson's email via mailto
+  function sendEmail(e) {
+    e.preventDefault();
+    const name    = document.getElementById('senderName').value.trim();
+    const email   = document.getElementById('senderEmail').value.trim();
+    const subject = document.getElementById('msgSubject').value.trim();
+    const body    = document.getElementById('msgBody').value.trim();
+    const mailto  = `mailto:wilsonmponzi10@gmail.com`
+      + `?subject=${encodeURIComponent(subject)}`
+      + `&body=${encodeURIComponent(`From: ${name} <${email}>\n\n${body}`)}`;
+    window.location.href = mailto;
+  }
+</script>
+</body>
+</html>
